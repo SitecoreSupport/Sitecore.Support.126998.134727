@@ -141,6 +141,10 @@ define(["sitecore", "extensions", "moment", "timeline", "hammerjs", "jqueryhamme
         item.eventType = this.getImageWithPath(originalItem.ImageUrl);
 
         var dateTime = new Date(originalItem.DateTime);
+
+        //Fix for the issue #126998
+        dateTime.setTime(dateTime.getTime() - dateTime.getTimezoneOffset() * 60 * 1000);
+
         //For visual purposes, separate simulataneous events 
         while (uniqueTimes[dateTime]) {
           dateTime = dateTime.setTime(dateTime.getTime() + 1);
