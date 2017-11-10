@@ -147,7 +147,8 @@ define(["sitecore", "extensions", "moment", "timeline", "hammerjs", "jqueryhamme
 
         //For visual purposes, separate simulataneous events 
         while (uniqueTimes[dateTime]) {
-          dateTime = dateTime.setTime(dateTime.getTime() + 1);
+            //Fix for the issue #134727
+            dateTime = new Date(dateTime).setTime(new Date(dateTime).getTime() + 1);
         }
         uniqueTimes[dateTime] = true;
         item.start = dateTime;
